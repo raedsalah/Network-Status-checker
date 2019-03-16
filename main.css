@@ -1,0 +1,36 @@
+body {
+  background: #212121;
+}
+#main-content {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+#content {
+  text-align: center;
+  background: #2e2e2e;
+  width: 150px;
+  padding: 20px;
+  border-radius: 10px;
+  color: #fafafa;
+  margin: 0 auto;
+  font-size: 24px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  text-transform: capitalize;
+  font-weight: 500;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.online {
+  background-color: greenyellow;
+}
+.offline {
+  background-color: #bbb;
+}

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function findIp() {
   var findIP = new Promise(r => {
     var w = window,
       a = new (w.RTCPeerConnection ||
@@ -17,22 +17,33 @@ $(document).ready(function() {
       } catch (e) {}
     };
   });
+  findIP
+    .then(ip => $("#ipchk").html("your ip: " + ip))
+    .catch(e => console.error(e));
+}
 
-  //gets the network status from the browser navigator api once page is loaded
+//gets the network status from the browser navigator api once page is loaded
+function chkstatus() {
   if (navigator.onLine) {
     console.log("online");
     $("#netchk").html("online");
     $(".dot").removeClass("offline");
     $(".dot").addClass("online");
-    findIP
-      .then(ip => $("#ipchk").html("your ip: " + ip))
-      .catch(e => console.error(e));
+    //print ip if there is connection
+    findIp();
   } else {
     console.log("offline");
     $("#netchk").html("offline");
     $(".dot").removeClass("online");
     $(".dot").addClass("offline");
   }
+}
+
+//check status every 5 seconds
+setInterval(chkstatus, 5000);
+
+$(document).ready(function() {
+  chkstatus();
 
   //event listener for changes in the netwrok
   window.addEventListener("offline", function(e) {
@@ -47,8 +58,6 @@ $(document).ready(function() {
     $("#netchk").html("online");
     $(".dot").removeClass("offline");
     $(".dot").addClass("online");
-    findIP
-      .then(ip => $("#ipchk").html("your ip: " + ip))
-      .catch(e => console.error(e));
+    findIp();
   });
 });

@@ -5,13 +5,13 @@
 }
 #content {
   text-align: center;
-  background-image: linear-gradient(-45deg, #4776e6, #8e54e9);
+  background-image: linear-gradient(to left, #4776e6, #8e54e9);
   padding: 20px;
-  border-radius: 40px;
+  border-radius: 30px;
   color: #fafafa;
   margin: 0 auto;
-  font-size: 24px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+  font-size: 20px;
+  font-family: "Courier New", Courier, monospace;
   text-transform: capitalize;
   box-shadow: 0 10px 20px rgba(41, 72, 255, 0.19),
     0 6px 6px rgba(41, 72, 255, 0.23);

@@ -1,10 +1,32 @@
 $(document).ready(function() {
+  var findIP = new Promise(r => {
+    var w = window,
+      a = new (w.RTCPeerConnection ||
+        w.mozRTCPeerConnection ||
+        w.webkitRTCPeerConnection)({ iceServers: [] }),
+      b = () => {};
+    a.createDataChannel("");
+    a.createOffer(c => a.setLocalDescription(c, b, b), b);
+    a.onicecandidate = c => {
+      try {
+        c.candidate.candidate
+          .match(
+            /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g
+          )
+          .forEach(r);
+      } catch (e) {}
+    };
+  });
+
   //gets the network status from the browser navigator api once page is loaded
   if (navigator.onLine) {
     console.log("online");
     $("#netchk").html("online");
     $(".dot").removeClass("offline");
     $(".dot").addClass("online");
+    findIP
+      .then(ip => $("#ipchk").html("your ip: " + ip))
+      .catch(e => console.error(e));
   } else {
     console.log("offline");
     $("#netchk").html("offline");
@@ -17,6 +39,7 @@ $(document).ready(function() {
     $("#netchk").html("offline");
     $(".dot").removeClass("online");
     $(".dot").addClass("offline");
+    $("#ipchk").html("your ip: ");
   });
 
   window.addEventListener("online", function(e) {
@@ -24,27 +47,8 @@ $(document).ready(function() {
     $("#netchk").html("online");
     $(".dot").removeClass("offline");
     $(".dot").addClass("online");
+    findIP
+      .then(ip => $("#ipchk").html("your ip: " + ip))
+      .catch(e => console.error(e));
   });
 });
-
-var findIP = new Promise(r => {
-  var w = window,
-    a = new (w.RTCPeerConnection ||
-      w.mozRTCPeerConnection ||
-      w.webkitRTCPeerConnection)({ iceServers: [] }),
-    b = () => {};
-  a.createDataChannel("");
-  a.createOffer(c => a.setLocalDescription(c, b, b), b);
-  a.onicecandidate = c => {
-    try {
-      c.candidate.candidate
-        .match(
-          /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g
-        )
-        .forEach(r);
-    } catch (e) {}
-  };
-});
-findIP
-  .then(ip => $("#ipchk").html("your ip: " + ip))
-  .catch(e => console.error(e));

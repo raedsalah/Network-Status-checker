@@ -18,7 +18,7 @@ function findIp() {
     };
   });
   findIP
-    .then(ip => $("#ipchk").html("your ip: " + ip))
+    .then(ip => $("#ipchk").html("your IP: " + ip))
     .catch(e => console.error(e));
 }
 

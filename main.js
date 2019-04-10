@@ -61,3 +61,17 @@ $(document).ready(function() {
     findIp();
   });
 });
+
+//checking via domain
+setInterval(function() {
+  $.ajax({
+    type: "HEAD",
+    url: document.location.pathname + "?param=" + new Date(),
+    error: function() {
+      console.log(false);
+    },
+    success: function() {
+      console.log(true);
+    }
+  });
+}, 1000);
